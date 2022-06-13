@@ -1963,7 +1963,15 @@ export function genarate(value) {//万 单位格式增加！！！
             }
         }
         else{
-            ct.fa = "yyyy-MM-dd";
+            if(value.toString().length > 18){
+                ct.fa = "yyyy-MM-dd hh:mm:ss";
+            }
+            else if(value.toString().length > 11){
+                ct.fa = "yyyy-MM-dd hh:mm";
+            }
+            else{
+                ct.fa = "yyyy-MM-dd";
+            }
         }
         
         ct.t = "d";

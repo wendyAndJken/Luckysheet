@@ -5361,8 +5361,8 @@ export default function luckysheetHandler() {
                           v = "";
                         }
                         if(isInlineStr){
-                          const cpData = $(cpDataArr[r - copy_r1][c - copy_c1]).text().replace(/\s|\n/g,' ')
-                          const storeValue = v.replace(/\n/g,'').replace(/\s/g,' ')
+                          const cpData = $(cpDataArr[r - copy_r1][c - copy_c1]).text().replace(/\s|\n/g,'')
+                          const storeValue = v.replace(/\n/g,'').replace(/\s/g,'')
                           if(cpData != storeValue){
                             isEqual = false;
                             break;
@@ -5651,7 +5651,7 @@ export default function luckysheetHandler() {
             }
             let text =  clipboardData.getData('text/plain');
             // 插入
-            document.execCommand("insertText", false, text);
+            document.execCommand("insertHTML", false, text);
         }
     });
 

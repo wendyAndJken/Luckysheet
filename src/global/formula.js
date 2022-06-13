@@ -1239,7 +1239,6 @@ const luckysheetformula = {
         let $input = $("#luckysheet-rich-text-editor");
         let inputText = $input.text(), inputHtml = $input.html();
 
-
         if (_this.rangetosheet != null && _this.rangetosheet != Store.currentSheetIndex) {
             sheetmanage.changeSheetExec(_this.rangetosheet);
         }
@@ -1267,7 +1266,6 @@ const luckysheetformula = {
 
         let isPrevInline = isInlineStringCell(curv);
         let isCurInline = (inputText.slice(0, 1) != "=" && inputHtml.substr(0, 5) == "<span");
-
         let isCopyVal = false;
         if(!isCurInline && inputText && inputText.length > 0) {
             let splitArr = inputText.replace(/\r\n/g, "_x000D_").replace(/&#13;&#10;/g, "_x000D_").replace(/\r/g, "_x000D_").replace(/\n/g, "_x000D_").split("_x000D_");
