@@ -196,50 +196,50 @@ export default function luckysheetHandler() {
         let scrollNum = event.deltaFactor<40?1:(event.deltaFactor<80?2:3);
         //一次滚动三行或三列
         if(event.deltaY != 0){
-            let row_ed,step=Math.round(scrollNum/Store.zoomRatio);
-            step = step<1?1:step;
-            if(event.deltaY < 0){
-                row_ed = row_st + step;
+            // let row_ed,step=Math.round(scrollNum/Store.zoomRatio);
+            // step = step<1?1:step;
+            // if(event.deltaY < 0){
+            //     row_ed = row_st + step;
                 
-                if(row_ed >= visibledatarow_c.length){
-                    row_ed = visibledatarow_c.length - 1;
-                }
-            }
-            else{
-                row_ed = row_st - step;
+            //     if(row_ed >= visibledatarow_c.length){
+            //         row_ed = visibledatarow_c.length - 1;
+            //     }
+            // }
+            // else{
+            //     row_ed = row_st - step;
                 
-                if(row_ed < 0){
-                    row_ed = 0;
-                }
-            }
+            //     if(row_ed < 0){
+            //         row_ed = 0;
+            //     }
+            // }
 
-            rowscroll = row_ed == 0 ? 0 : visibledatarow_c[row_ed - 1];
+            // rowscroll = row_ed == 0 ? 0 : visibledatarow_c[row_ed - 1];
 
-            if (luckysheetFreezen.freezenhorizontaldata != null) {
-                rowscroll -= luckysheetFreezen.freezenhorizontaldata[0];
-            }
+            // if (luckysheetFreezen.freezenhorizontaldata != null) {
+            //     rowscroll -= luckysheetFreezen.freezenhorizontaldata[0];
+            // }
             // ftj 修改y滚动逻辑
             let scrollTop =  $("#luckysheet-scrollbar-y").scrollTop() - event.deltaY;
             $("#luckysheet-scrollbar-y").scrollTop(scrollTop);
         }
         else if(event.deltaX != 0){
-            let col_ed;
+            // let col_ed;
             
             // if((isMac && event.deltaX >0 ) || (!isMac && event.deltaX < 0)){
-            if(event.deltaX >0){
-                scrollLeft = scrollLeft + 20*Store.zoomRatio;
+            // if(event.deltaX >0){
+            //     scrollLeft = scrollLeft + 20*Store.zoomRatio;
                 
-                // if(col_ed >= visibledatacolumn_c.length){
-                //     col_ed = visibledatacolumn_c.length - 1;
-                // }
-            }
-            else{
-                scrollLeft = scrollLeft - 20*Store.zoomRatio;
+            //     // if(col_ed >= visibledatacolumn_c.length){
+            //     //     col_ed = visibledatacolumn_c.length - 1;
+            //     // }
+            // }
+            // else{
+            //     scrollLeft = scrollLeft - 20*Store.zoomRatio;
                 
-                // if(col_ed < 0){
-                //     col_ed = 0;
-                // }
-            }
+            //     // if(col_ed < 0){
+            //     //     col_ed = 0;
+            //     // }
+            // }
 
             // colscroll = col_ed == 0 ? 0 : visibledatacolumn_c[col_ed - 1];
 
