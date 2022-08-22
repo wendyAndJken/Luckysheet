@@ -218,8 +218,9 @@ export default function luckysheetHandler() {
             if (luckysheetFreezen.freezenhorizontaldata != null) {
                 rowscroll -= luckysheetFreezen.freezenhorizontaldata[0];
             }
-
-            $("#luckysheet-scrollbar-y").scrollTop(rowscroll);
+            // ftj 修改y滚动逻辑
+            let scrollTop =  $("#luckysheet-scrollbar-y").scrollTop() - event.deltaY;
+            $("#luckysheet-scrollbar-y").scrollTop(scrollTop);
         }
         else if(event.deltaX != 0){
             let col_ed;
@@ -261,6 +262,7 @@ export default function luckysheetHandler() {
     });
 
     $("#luckysheet-scrollbar-y").scroll(function(){
+        console.log(7777)
 		// setTimeout(function(){
             luckysheetscrollevent();
         // },10);
