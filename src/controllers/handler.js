@@ -243,7 +243,9 @@ export default function luckysheetHandler() {
 
             // colscroll = col_ed == 0 ? 0 : visibledatacolumn_c[col_ed - 1];
 
-            $("#luckysheet-scrollbar-x").scrollLeft(scrollLeft);
+            let scrollLeftX =  $("#luckysheet-scrollbar-x").scrollLeft() + event.deltaX;
+            $("#luckysheet-scrollbar-x").scrollLeft(scrollLeftX);
+            // $("#luckysheet-scrollbar-x").scrollLeft(scrollLeft);
         }
 
         mousewheelArrayUniqueTimeout = setTimeout(() => {
@@ -262,7 +264,6 @@ export default function luckysheetHandler() {
     });
 
     $("#luckysheet-scrollbar-y").scroll(function(){
-        console.log(7777)
 		// setTimeout(function(){
             luckysheetscrollevent();
         // },10);
