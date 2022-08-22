@@ -195,7 +195,8 @@ export default function luckysheetHandler() {
 
         let scrollNum = event.deltaFactor<40?1:(event.deltaFactor<80?2:3);
         //一次滚动三行或三列
-        if(event.deltaY != 0){
+        // 避免滚动x轴时，y轴也动
+        if(event.deltaY != 0 && Math.abs(event.deltaX) <= Math.abs(event.deltaY)){
             // let row_ed,step=Math.round(scrollNum/Store.zoomRatio);
             // step = step<1?1:step;
             // if(event.deltaY < 0){
