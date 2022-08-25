@@ -5431,13 +5431,18 @@ export default function luckysheetHandler() {
                         $tr.find(cellElements).each(function () {
                             let $td = $(this);
                             let cell = {};
-                            let txt = $td.text();
+                            let txt = $td.html();
+                            if(txt && txt.indexOf('<br') != -1) {
+                                txt = txt.split(/<[^>]+>/ig).filter((it) => !!it.trim()).join('\r\n')
+                            } else {
+                                txt = $td.text();
+                            }
                             if ($.trim(txt).length == 0) {
                                 cell.v = null;
                                 cell.m = "";
                             }
                             else {
-                                let mask = genarate($td.text());
+                                let mask = genarate(txt);
                                 cell.v = mask[2];
                                 cell.ct = mask[1];
                                 cell.m = mask[0];

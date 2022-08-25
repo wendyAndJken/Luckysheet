@@ -1978,9 +1978,16 @@ export function genarate(value) {//万 单位格式增加！！！
         m = SSF.format(ct.fa, v);
     }
     else{
-        m = value;
-        ct.fa = "General";
-        ct.t = "g";
+        if(value.indexOf('\r\n') !== -1) {
+            m = value;
+            ct.fa = "General";
+            ct.t = "inlineStr";            
+            ct.s = [{ v: value }];
+        } else {
+            m = value;
+            ct.fa = "General";
+            ct.t = "g";
+        }
     }
 
     return [m, ct, v];
