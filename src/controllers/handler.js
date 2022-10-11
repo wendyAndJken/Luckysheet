@@ -28,6 +28,14 @@ import { luckysheetdefaultstyle } from './constant';
 import {checkProtectionLockedRangeList,checkProtectionAllSelected,checkProtectionSelectLockedOrUnLockedCells,checkProtectionNotEnable,checkProtectionAuthorityNormal} from './protection';
 import { openCellFormatModel } from './cellFormat';
 
+
+function escape(str) {
+    if(!str || typeof str !== 'string') return str;
+    str = str.replace(/</g, '&lt;')
+    str = str.replace(/>/g, '&gt;')
+    return str
+}
+
 import { 
     replaceHtml,
     getObjType, 
@@ -529,9 +537,7 @@ export default function luckysheetHandler() {
                             let textRange = document.selection.createRange();
                             formula.functionRangeIndex = textRange;
                         }
-
                         /* 在显示前重新 + 右侧的圆括号) */
-
                         $("#luckysheet-rich-text-editor").html(vText + ")");
 
                         formula.canceFunctionrangeSelected();
@@ -5651,7 +5657,6 @@ export default function luckysheetHandler() {
             }
         }
         else if($(e.target).closest('#luckysheet-rich-text-editor').length > 0) {
-            
             // 阻止默认粘贴
             e.preventDefault();
 
@@ -5660,6 +5665,7 @@ export default function luckysheetHandler() {
                 clipboardData = e.originalEvent.clipboardData;
             }
             let text =  clipboardData.getData('text/plain');
+            text = escape(text)
             // 插入
             document.execCommand("insertHTML", false, text);
         }

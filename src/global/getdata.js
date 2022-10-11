@@ -300,6 +300,12 @@ export function getInlineStringNoStyle(r, c){
     return "";
 }
 
+function escape(str) {
+    str = str.replace(/</g, '&lt;')
+    str = str.replace(/>/g, '&gt;')
+    return str
+}
+
 export function getInlineStringStyle(r, c, data){
     let ct = getcellvalue(r, c, data, "ct");
     if (data == null) {
@@ -312,7 +318,9 @@ export function getInlineStringStyle(r, c, data){
             let strObj = strings[i];
             if(strObj.v!=null){
                 let style = getFontStyleByCell(strObj);
-                value += "<span index='"+ i +"' style='"+ style +"'>" + strObj.v + "</span>";
+                let v =  strObj.v;
+                v = v && typeof v === 'string' ? escape(v) : v;
+                value += "<span index='"+ i +"' style='"+ style +"'>" + v + "</span>";
             }
         }
         return value;

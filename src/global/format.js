@@ -2001,6 +2001,13 @@ export function is_date(fmt, v) {
     return SSF.is_date(fmt, v);
 }
 
+function escape(str) {
+    str = str.replace(/</g, '&lt;')
+    str = str.replace(/<\//g, '&lt;&#x2F;')
+    str = str.replace(/>/g, '&gt;')
+    return str
+}
+
 export function valueShowEs(r, c, d) {
     var value = getcellvalue(r, c, d, "m");
     if(value == null){
@@ -2026,5 +2033,6 @@ export function valueShowEs(r, c, d) {
             value = getcellvalue(r, c, d, "v");
         }
     }
+    value = value && typeof value === 'string' ? escape(value) : value;
     return value;
 }

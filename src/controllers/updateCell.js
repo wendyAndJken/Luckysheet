@@ -165,7 +165,6 @@ export function luckysheetupdateCell(row_index1, col_index1, d, cover, isnotfocu
 
         inputContentScale["transform-origin"] = leftOrigin +" " + topOrigin;
 
-        
         if (!cover) {
             if(isInlineStringCell(cell)){
                 value = getInlineStringStyle(row_index, col_index, d);
