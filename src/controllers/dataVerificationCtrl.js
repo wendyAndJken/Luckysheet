@@ -16,6 +16,16 @@ import { getSheetIndex, getRangetxt } from '../methods/get';
 import locale from '../locale/locale';
 import Store from '../store';
 
+// 获取单元格数据
+export const getCellValue = (colData) => {
+    if (!colData) return '';
+    if (colData.ct?.s?.length) {
+        return colData.ct.s.map((it) => it.v).join('');
+    }
+    return colData.m || colData.v;
+};
+  
+
 const dataVerificationCtrl = {
     defaultItem: {
         type: 'dropdown',  //类型
@@ -1556,11 +1566,11 @@ const dataVerificationCtrl = {
 
                     let cell = d[r][c];
 
-                    if(cell == null || cell.v == null){
+                    if(cell == null || (cell.v == null && (cell.ct == null || cell.ct.s == null || cell.ct.s.length == null) )){
                         continue;
                     }
 
-                    let v = cell.m || cell.v;
+                    let v = getCellValue(cell);
 
                     if(!list.includes(v)){
                         list.push(v);
