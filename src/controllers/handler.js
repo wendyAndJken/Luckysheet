@@ -5283,7 +5283,7 @@ export default function luckysheetHandler() {
         if (isEditMode()) {//此模式下禁用粘贴
             return;
         }
-
+        debugger
         if (selection.isPasteAction) {
             $("#luckysheet-rich-text-editor").blur();
             selection.isPasteAction = false;
@@ -5294,7 +5294,10 @@ export default function luckysheetHandler() {
             }
 
             let txtdata = clipboardData.getData("text/html") || clipboardData.getData("text/plain");
-
+            if(txtdata && txtdata.length && txtdata.length >  1024 * 100 ) {
+                window.alert('单个单元格粘贴的内容不能超过100kb！！！')
+                return
+            }
             //如果标示是qksheet复制的内容，判断剪贴板内容是否是当前页面复制的内容
             let isEqual = true;
             if (txtdata.indexOf("luckysheet_copy_action_table") > - 1 && Store.luckysheet_copy_save["copyRange"] != null && Store.luckysheet_copy_save["copyRange"].length > 0) {
@@ -5652,6 +5655,10 @@ export default function luckysheetHandler() {
                 }
                 else {
                     txtdata = clipboardData.getData("text/plain");
+                    if(txtdata && txtdata.length && txtdata.length >  1024 * 100 ) {
+                        window.alert('单个单元格粘贴的内容不能超过100kb！！！')
+                        return
+                    }
                     selection.pasteHandler(txtdata);
                 }
             }
@@ -5665,6 +5672,10 @@ export default function luckysheetHandler() {
                 clipboardData = e.originalEvent.clipboardData;
             }
             let text =  clipboardData.getData('text/plain');
+            if(text && text.length && text.length >  1024 * 100 ) {
+                window.alert('单个单元格粘贴的内容不能超过100kb！！！')
+                return
+            }
             text = escape(text)
             // 插入
             document.execCommand("insertHTML", false, text);

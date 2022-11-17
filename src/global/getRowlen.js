@@ -425,11 +425,18 @@ function getCellTextInfo(cell , ctx, option){
 
     let fontset, cancelLine="0", underLine="0", fontSize=11, isInline=false, value, inlineStringArr=[];
     if(isInlineStringCell(cell)){
-        let sharedStrings = cell.ct.s, similarIndex = 0;
-        for(let i=0;i<sharedStrings.length;i++){
+
+        let sharedStrings = cell.ct.s;
+        let similarIndex = 0;
+        for(let i=0;i<sharedStrings.length && i < 100;i++){
             let shareCell = sharedStrings[i];
             let scfontset = luckysheetfontformat(shareCell);
             let fc = shareCell.fc, cl=shareCell.cl,un = shareCell.un, v = shareCell.v, fs=shareCell.fs;
+
+            // 单元格最多展示1000个字符
+            // 修复单单元格文字过多， 导致canvas渲染性能保证
+            v = v ? v.substring(0,1000) : v;
+
             v = v.replace(/\r\n/g, "_x000D_").replace(/&#13;&#10;/g, "_x000D_").replace(/\r/g, "_x000D_").replace(/\n/g, "_x000D_");
             let splitArr = v.split("_x000D_");
             for(let x=0;x<splitArr.length;x++){
