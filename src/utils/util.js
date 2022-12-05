@@ -439,6 +439,10 @@ function luckysheetfontformat(format) {
                     console.log(format,';format')
                 }
 
+                if(fontfamily && fontfamily.indexOf('&') !== -1 && fontfamily.indexOf(';') !== -1) {
+                    fontfamily = "微软雅黑";
+                    console.log(format,';format')
+                }
                 if(fontfamily!=null && document.fonts && !document.fonts.check("12px "+fontfamily)){
                     menuButton.addFontTolist(fontfamily);
                 }

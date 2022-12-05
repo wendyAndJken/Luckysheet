@@ -25,7 +25,12 @@
 
 		<div id="luckysheet" style="margin:0px;padding:0px;position:absolute;width:80%;height:500px;left: 20%;top: 200px;bottom:0;right: 0;"></div>
 	</div> -->
-	
+	<div id="actoin" style="background-color: red;z-index: 1;position: fixed;right: 50px;">
+		获取数据
+	</div>
+	<div  style="background-color: red;z-index: 1;position: fixed;right: 350px;">
+		<input id="upfile" type="file" style="font-size: 16px" accept=".xlsx, .xls" />
+	</div>
 	<div id="luckysheet" style="margin:0px;padding:0px;position:absolute;width:100%;height:100%;left: 0px;top: 0px;"></div>
 	<!-- demo feature, non-production use -->
 	<script src="./demoData/demoFeature.js"></script>
@@ -40,7 +45,75 @@
 	<script src="./demoData/sheetChart.js"></script>
 	<script src="./demoData/sheetPicture.js"></script>
 	<script src="./demoData/sheetDataVerification.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/luckyexcel/dist/luckyexcel.umd.js"></script>
 
+	<script>
+		const LuckySheet = window.luckysheet;
+	  const el	= document.getElementById('actoin');
+		el.onclick = () => {
+		  const sheetData = window.luckysheet.getAllSheets()[0].data[0][0]
+			console.log(sheetData, 'sheetData')	
+		}
+
+		const upEl = document.getElementById('upfile');
+		upEl.onchange =  (e) => {
+			importExcel(e)
+		}
+
+		const importExcel = (evt) => {
+        const files = evt.target.files;
+        if (files == null || files.length == 0) {
+          alert('No files wait for import');
+          return;
+        }
+        let name = files[0].name;
+        let suffixArr = name.split('.'),
+          suffix = suffixArr[suffixArr.length - 1];
+        if (suffix != 'xlsx') {
+          alert('Currently only supports the import of xlsx files');
+          return;
+        } 
+			// 限制数据量过大，列数不超过100 （无效列数可能被无限扩大）
+			const spliceData = (sheets) => {
+        sheets.forEach((it) => {
+          it.celldata = it.celldata.filter((it) => it.c < 100);
+        });
+      };
+        LuckyExcel.transformExcelToLucky(files[0], function (exportJson) {
+          if (exportJson.sheets == null || exportJson.sheets.length == 0) {
+            alert(
+              'Failed to read the content of the excel file, currently does not support xls files!'
+            );
+            return;
+          }
+
+          LuckySheet.getAllSheets() && LuckySheet.destroy();
+          setTimeout(() => {
+            spliceData(exportJson.sheets);
+            const sheetConfig = getSheetConfig(exportJson.sheets);
+            LuckySheet.create(sheetConfig);
+          }, 500);
+        });
+      };
+
+			// sheet配置
+			const getSheetConfig = (sheetJson) => {
+        return {
+          container: 'luckysheet',
+          title: '配置',
+          lang: 'zh',
+          data: sheetJson,
+          showinfobar: false,
+          showtoolbarConfig: {
+            protection: false,
+            // moreFormats: false, // '更多格式'
+            fontSize: 20,
+            image: false,
+          },
+        };
+      };
+
+	</script>
 	<script>
 		// import sheetFormula from './demoData/sheetFormula.js'
 		// import sheetCell from './demoData/sheetCell.js'

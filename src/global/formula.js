@@ -2452,7 +2452,8 @@ const luckysheetformula = {
     },
     israngeseleciton: function (istooltip) {
         let _this = this;
-
+        // 关闭范围选择， 避免点击不能立即选择单元格
+        return false
         if (_this.operatorjson == null) {
             let arr = _this.operator.split("|"),
                 op = {};
