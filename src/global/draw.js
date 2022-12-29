@@ -1407,7 +1407,10 @@ let cellRender = function(r, c, start_r, start_c, end_r, end_c, value, luckyshee
     //溢出单元格
     let cellOverflow_bd_r_render = true; //溢出单元格右边框是否需要绘制
     let cellOverflow_colInObj = cellOverflow_colIn(cellOverflowMap, r, c, dataset_col_st, dataset_col_ed);
-
+    // 强制把溢出的样式转化为截断的样式，溢出会导致单元格展示异常
+    if(cell.tb == '1') {
+        cell.tb = '0'
+    }
     if(cell.tb == '1' && cellOverflow_colInObj.colIn){
         //此单元格 为 溢出单元格渲染范围最后一列，绘制溢出单元格内容
         if(cellOverflow_colInObj.colLast){
