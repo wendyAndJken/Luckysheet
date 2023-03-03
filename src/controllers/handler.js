@@ -36,6 +36,9 @@ function escape(str) {
     return str
 }
 
+
+var isMac = /macintosh|mac os x/i.test(navigator.userAgent);
+
 import { 
     replaceHtml,
     getObjType, 
@@ -204,6 +207,7 @@ export default function luckysheetHandler() {
         let scrollNum = event.deltaFactor<40?1:(event.deltaFactor<80?2:3);
         //一次滚动三行或三列
         // 避免滚动x轴时，y轴也动
+
         if(event.deltaY != 0 && Math.abs(event.deltaX) <= Math.abs(event.deltaY)){
             // let row_ed,step=Math.round(scrollNum/Store.zoomRatio);
             // step = step<1?1:step;
@@ -228,7 +232,10 @@ export default function luckysheetHandler() {
             //     rowscroll -= luckysheetFreezen.freezenhorizontaldata[0];
             // }
             // ftj 修改y滚动逻辑
-            let scrollTop =  $("#luckysheet-scrollbar-y").scrollTop() - event.deltaY;
+            let deltaY =  event.deltaY;
+            let rate = 1;
+            if(!isMac) rate = 40;
+            let scrollTop =  $("#luckysheet-scrollbar-y").scrollTop() - (deltaY*rate);
             $("#luckysheet-scrollbar-y").scrollTop(scrollTop);
         }
         else if(event.deltaX != 0){
